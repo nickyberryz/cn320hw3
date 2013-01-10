@@ -27,10 +27,15 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
-  rating_list.split(%r{,\s*}).each_with_index {
-      |name, index|
-          step %{I check "ratings[#{name}]"}
-    }
+  rating_list.split(%r{,\s*}).each do | rating |
+      rating = "ratings[" + rating + "]"
+      if uncheck
+        step %{I uncheck "#{rating}"}
+      else
+        step %{I check "#{rating}"}
+      end
+    end
+    
 end
 
 Then /I should see all the movies/ do

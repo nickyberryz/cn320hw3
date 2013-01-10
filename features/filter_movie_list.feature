@@ -23,37 +23,38 @@ Background: movies have been added to database
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
   Given I am on the RottenPotatoes home page
-  When I check "ratings[PG]"
-    And I check "ratings[R]"
-    And I uncheck "ratings[G]"
-    And I uncheck "ratings[PG-13]"
-    And I press "Refresh"
-  Then I should see "The Incredibles"
-    And I should see "Raiders of the Lost Ark"
-    And I should see "The Terminator"
+
+  #When I check "ratings[PG]"
+    #And I check "ratings[R]"
+    #And I uncheck "ratings[G]"
+    #And I uncheck "ratings[PG-13]"
+    #And I press "Refresh"
+
+  # enter step(s) to check the 'PG' and 'R' checkboxes
+  Given I check the following ratings: R, PG
+
+  # enter step(s) to uncheck all other checkboxes
+    And I uncheck the following ratings: PG-13, G
+
+  # enter step to "submit" the search form on the homepage
+  When I press "ratings_submit"
+
+  # enter step(s) to ensure that PG and R movies are visible
+  Then I should see "The Terminator"
     And I should see "When Harry Met Sally"
     And I should see "Amelie"
+    And I should see "The Incredibles"
+    And I should see "Raiders of the Lost Ark"
+
+  # enter step(s) to ensure that other movies are not visible
     And I should not see "Aladdin"
     And I should not see "The Help"
     And I should not see "Chocolat"
     And I should not see "2001: A Space Odyssey"
     And I should not see "Chicken Run"
-
-  Given I check the following ratings: G, PG, R
-  Then I should see "Aladdin" before "Amelie"
-
-
-  # enter step(s) to check the 'PG' and 'R' checkboxes
-  # enter step(s) to uncheck all other checkboxes
-  # enter step to "submit" the search form on the homepage
-  # enter step(s) to ensure that PG and R movies are visible
-  # enter step(s) to ensure that other movies are not visible
+  
 
 Scenario: all ratings selected
   Given I am on the RottenPotatoes home page
-  When I check "ratings[PG]"
-    And I check "ratings[R]"
-    And I check "ratings[G]"
-    And I check "ratings[PG-13]"
-    And I press "Refresh"
+  Given I check the following ratings: R, PG, PG-13, G
   Then I should see all the movies
