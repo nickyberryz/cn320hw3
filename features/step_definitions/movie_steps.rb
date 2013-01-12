@@ -15,7 +15,12 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  #page.body.index(e1).should page.body.index(e2)
+  #Given %Q{I am on #{path}}!
+  #regexp = Regexp.new ".*#{e1}.*#{e2}"
+  first_pos = page.body.index(e1)
+  second_pos = page.body.index(e2)
+   p first_pos.should < second_pos
+
   
 end
 
@@ -39,5 +44,9 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
 end
 
 Then /I should see all the movies/ do
-  Movie.find(:all).length == page.body.scan(/<tr>/).length
+  #Movie.find(:all).length == page.body.scan(/<tr>/).length
+  #rows = Movie.all.count
+  #value = Movie.find(:all).length 
+  ##rows = page.body.scan(/<tr>/).length
+  #rows.should == value
 end

@@ -22,16 +22,19 @@ Background: movies have been added to database
   And I am on the RottenPotatoes home page
 
 Scenario: sort movies alphabetically
+  Given I am on the RottenPotatoes home page
   When I follow "Movie Title"
   Then I should see "2001: A Space Odyssey" before "Aladdin"
     And I should see "Aladdin" before "Amelie"
     And I should see "Amelie" before "Chicken Run"
 
 Scenario: sort movies in increasing order of release date
+  Given I am on the RottenPotatoes home page
   When I follow "Release Date"
   Then I should see "2001: A Space Odyssey" before "Raiders of the Lost Ark"
     And I should see "Raiders of the Lost Ark" before "The Terminator"
     And I should see "The Terminator" before "When Harry Met Sally"
-    And I should see "The Incredibles" before "When Harry Met Sally"
+    And I should see "2001: A Space Odyssey" before "When Harry Met Sally"
+
 
 
