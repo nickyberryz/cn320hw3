@@ -45,8 +45,7 @@ end
 
 Then /I should see all the movies/ do
   #Movie.find(:all).length == page.body.scan(/<tr>/).length
-  #rows = Movie.all.count
-  #value = Movie.find(:all).length 
-  ##rows = page.body.scan(/<tr>/).length
+  #rows = Movie.all.length
+  #value = page.body.scan(/<tr>/).length
   #rows.should == value
 end
